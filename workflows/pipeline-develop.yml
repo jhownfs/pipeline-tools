@@ -1,0 +1,53 @@
+name: pipeline develop
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - 'sfdx-project.json'
+      - 'README.md'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - ready_for_review
+      - converted_to_draft
+    branchs:
+      - master
+      - develop
+      - feature/*
+      - release/*
+      - hotfix/*
+
+jobs:
+  validate-app-uat:
+    uses: ./.github/workflows/workflow-build-deploy.yml
+    if: ${{ github.event.pull_request.base.ref == 'develop' }}
+    with:
+      environment-name: SIT
+      environment-url: https://login.salesforce.com
+      BUILD_CHECK_ONLY: true
+      BUILD_TEST_LEVEL: RunLocalTests
+    secrets: inherit
+
+  # build-app-ci:
+  #   uses: ./.github/workflows/workflow-build-deploy.yml
+  #   if: ${{ github.ref == 'refs/heads/develop' }}
+  #   with:
+  #     environment-name: SIT
+  #     environment-url: https://login.salesforce.com
+  #     BUILD_TEST_LEVEL: NoTestRun
+  #   secrets: inherit
+
+  build-app-uat:
+    uses: ./.github/workflows/workflow-build-deploy.yml
+    if: ${{ github.ref == 'refs/heads/develop' }}
+    #needs: build-app-ci
+    with:
+      environment-name: SIT
+      environment-url: https://login.salesforce.com
+      BUILD_TEST_LEVEL: RunLocalTests
+    secrets: inherit 

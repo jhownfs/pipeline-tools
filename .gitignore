@@ -1,0 +1,7 @@
+jwt
+.sf/
+.sfdx/
+vlocity-temp
+VlocityBuildErrors.log
+vlocity-temp
+VlocityBuildLog.yaml

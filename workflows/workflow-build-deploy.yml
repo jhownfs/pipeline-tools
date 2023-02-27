@@ -1,0 +1,80 @@
+name: Build Deploy workflow
+
+on:
+  workflow_call:
+    inputs:
+      environment-name: 
+        type: string
+        required: true
+      environment-url:
+        type: string
+        required: true
+      BUILD_PROJECT_NAME:
+        default: sfdx-project
+        type: string
+      BUILD_TEST_LEVEL:
+        default: RunLocalTests
+        type: string
+      BUILD_PATH_PIPELINE_TOOLS:
+        default: ./pipeline
+        type: string
+      BUILD_CHECK_ONLY:
+        default:
+        type: string
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment-name }}
+      url: ${{ inputs.environment-url }} 
+    env:
+      PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+      CLIENT_ID: ${{ secrets.CLIENT_ID }}
+      USERNAME: ${{ secrets.USERNAME }}
+      INSTANCE_URL: ${{ secrets.INSTANCE_URL }}
+      CHECK_ONLY: ${{ inputs.BUILD_CHECK_ONLY }}
+      PROJECT_NAME: ${{ inputs.BUILD_PROJECT_NAME }}
+      TEST_LEVEL: ${{ inputs.BUILD_TEST_LEVEL }}
+      PATH_PIPELINE_TOOLS: ${{ inputs.BUILD_PATH_PIPELINE_TOOLS }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: 'Prepare Cache CLI'
+        id: sfdx-cli-v7-167-2
+        uses: actions/cache@v3
+        with:
+          path: ~/sfdx
+          key: ${{ runner.os }}-sfdx-cli-v7-167-2
+
+      - name: 'Install Salesforce CLI'
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-install-sfdx-cli.sh
+
+      - name: 'Install Vlocity DataPack'
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-install-vlocity-cli.sh  
+
+      - name: 'Autenticate Organization'
+        shell: bash
+        run: ./pipeline/scripts/sh/helper/doAuthenticate.sh
+
+      - name: 'Prepare Package to Build'
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-git-delta.sh
+
+      - name: 'Deploy Package in Build'
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-deploy.sh
+
+      - name: 'Migration Data Packs'
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-migration-data-packs.sh
+
+      - name: 'Sync hash of commit Salesforce'
+        if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' }}
+        shell: bash
+        run: ./pipeline/scripts/sh/task-build-store-commit-info.sh

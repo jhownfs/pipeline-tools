@@ -1,0 +1,109 @@
+{
+	"itens": [
+		{
+			"type": "Profile",
+			"nodes": [
+				{
+					"parentNode": "applicationVisibilities",
+					"childNode": "application",
+					"values": [
+						"standard__LightningInstrumentation"
+					]
+				},
+				{
+					"parentNode": "tabVisibilities",
+					"childNode": "tab",
+					"values": [
+						"standard-ActiveScratchOrg",
+						"standard-ScratchOrgInfo",
+						"standard-NamespaceRegistry",
+						"standard-MessagingSession",
+						"standard-MessagingEndUser",
+						"standard-DelegatedAccount"
+					]
+				},
+				{
+					"parentNode": "userPermissions",
+					"childNode": "name",
+					"values": ["SendExternalEmailAvailable"]
+				},
+				{
+					"parentNode": "objectPermissions",
+					"childNode": "object",
+					"values": [
+						"NamespaceRegistry",
+						"ScratchOrgInfo",
+						"ActiveScratchOrg"
+					]
+				},
+				{
+					"parentNode": "fieldPermissions",
+					"childNode": "field",
+					"values": [
+						"Sf_Limits__c.ActiveScratchOrgs_Delta__c",
+						"Sf_Limits__c.ActiveScratchOrgs_Max__c",
+						"Sf_Limits__c.ActiveScratchOrgs_Remain__c"
+					]
+				},
+				{
+					"parentNode": "layoutAssignments",
+					"childNode": "layout",
+					"values": [
+						"Case-Layout do caso - Agente Cobrança",
+						"SiteIframeWhiteListUrl-Whitelisted Domains for Inline Frames Layout"
+					]
+				}
+			]
+		},
+		{
+			"type": "PermissionSet",
+			"nodes": [
+				{
+					"parentNode": "applicationVisibilities",
+					"childNode": "application",
+					"values": ["standard__LightningInstrumentation"]
+				},
+				{
+					"parentNode": "tabVisibilities",
+					"childNode": "tab",
+					"values": [
+						"standard-ActiveScratchOrg",
+						"standard-ScratchOrgInfo",
+						"standard-NamespaceRegistry"
+					]
+				},
+				{
+					"parentNode": "userPermissions",
+					"childNode": "name",
+					"values": ["SendExternalEmailAvailable"]
+				},
+				{
+					"parentNode": "objectPermissions",
+					"childNode": "object",
+					"values": [
+						"NamespaceRegistry",
+						"ScratchOrgInfo",
+						"ActiveScratchOrg"
+					]
+				},
+				{
+					"parentNode": "fieldPermissions",
+					"childNode": "field",
+					"values": [
+						"Sf_Limits__c.ActiveScratchOrgs_Delta__c",
+						"Sf_Limits__c.ActiveScratchOrgs_Max__c",
+						"Sf_Limits__c.ActiveScratchOrgs_Remain__c"
+					]
+				},
+				{
+					"parentNode": "layoutAssignments",
+					"childNode": "layout",
+					"values": [
+						"Case-Layout do caso - Agente Cobrança",
+						"SiteIframeWhiteListUrl-Whitelisted Domains for Inline Frames Layout"
+					]
+				}
+			]
+		}
+	]
+}
