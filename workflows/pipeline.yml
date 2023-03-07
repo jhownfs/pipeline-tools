@@ -27,28 +27,28 @@ jobs:
     uses: ./.github/workflows/workflow-build-deploy.yml
     if: ${{ github.event.pull_request.base.ref == 'master' }}
     with:
-      environment-name: SIT
+      environment-name: stage
       environment-url: https://login.salesforce.com
       BUILD_CHECK_ONLY: true
       BUILD_TEST_LEVEL: RunLocalTests
     secrets: inherit
 
-  # build-app-stage:
-  #   uses: ./.github/workflows/workflow-build-deploy.yml
-  #   if: ${{ github.ref == 'refs/heads/master' }}
-  #   with:
-  #     environment-name: SIT
-  #     environment-url: https://login.salesforce.com
-  #     BUILD_CHECK_ONLY: true
-  #     BUILD_TEST_LEVEL: NoTestRun
-  #   secrets: inherit
+  build-app-stage:
+    uses: ./.github/workflows/workflow-build-deploy.yml
+    if: ${{ github.ref == 'refs/heads/master' }}
+    with:
+      environment-name: stage
+      environment-url: https://login.salesforce.com
+      BUILD_CHECK_ONLY: true
+      BUILD_TEST_LEVEL: NoTestRun
+    secrets: inherit
 
   build-app-prod:
     uses: ./.github/workflows/workflow-build-deploy.yml
     if: ${{ github.ref == 'refs/heads/master' }}
-    #needs: build-app-stage
+    needs: build-app-stage
     with:
-      environment-name: SIT
+      environment-name: production
       BUILD_CHECK_ONLY: true
       environment-url: https://login.salesforce.com
       BUILD_TEST_LEVEL: RunLocalTests
