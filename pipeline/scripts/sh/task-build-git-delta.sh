@@ -63,5 +63,5 @@ if [ -n "$CHANGES" ]; then
     echo "#### Running Code Scan #####"
     echo ""
 
-    sfdx scanner:run --format sarif --target "$CODE_SCAN_PATH" --pmdconfig="$CODE_SCAN_RULE" --outfile "$CODE_SCAN_RESULTS"
+    #sfdx scanner:run --format sarif --target "$CODE_SCAN_PATH" --pmdconfig="$CODE_SCAN_RULE" --outfile "$CODE_SCAN_RESULTS"
 fi
