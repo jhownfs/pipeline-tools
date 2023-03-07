@@ -12,7 +12,7 @@ SOURCE_PATH='./force-app'
 CODE_SCAN_PATH='../code-scan'
 CODE_SCAN_RESULTS_DIR='../scan-result'
 CODE_SCAN_RESULTS="${CODE_SCAN_RESULTS_DIR}/apexScanResults.sarif"
-CODE_SCAN_RULE='./pipeline/config/pmd/apex_ruleset.xml'
+CODE_SCAN_RULE='../pipeline/config/pmd/apex_ruleset.xml'
 DIR_DIFF='../diff'
 echo "### Get Last SHA ###"
 git config --global core.quotePath false
