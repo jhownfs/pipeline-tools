@@ -16,7 +16,7 @@ on:
         default: RunLocalTests
         type: string
       BUILD_PATH_PIPELINE_TOOLS:
-        default: ./pipeline
+        default: ./pipeline-tools
         type: string
       BUILD_CHECK_ONLY:
         default:
@@ -43,6 +43,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: 'Checkout Pipeline Tools'
+        uses: actions/checkout@v3
+        with:
+          repository: jmpmatos/pipeline-tools
+          path: pipeline-tools
+
       - name: 'Prepare Cache CLI'
         id: sfdx-cli-v7-167-2
         uses: actions/cache@v3
@@ -52,29 +58,29 @@ jobs:
 
       - name: 'Install Salesforce CLI'
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-install-sfdx-cli.sh
+        run: ./pipeline-tools/scripts/sh/task-build-install-sfdx-cli.sh
 
       - name: 'Install Vlocity DataPack'
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-install-vlocity-cli.sh  
+        run: ./pipeline-tools/scripts/sh/task-build-install-vlocity-cli.sh  
 
       - name: 'Autenticate Organization'
         shell: bash
-        run: ./pipeline/scripts/sh/helper/doAuthenticate.sh
+        run: ./pipeline-tools/scripts/sh/helper/doAuthenticate.sh
 
       - name: 'Prepare Package to Build'
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-git-delta.sh
+        run: ./pipeline-tools/scripts/sh/task-build-git-delta.sh
 
       - name: 'Deploy Package in Build'
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-deploy.sh
+        run: ./pipeline-tools/scripts/sh/task-build-deploy.sh
 
       - name: 'Migration Data Packs'
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-migration-data-packs.sh
+        run: ./pipeline-tools/scripts/sh/task-build-migration-data-packs.sh
 
       - name: 'Sync hash of commit Salesforce'
         if: ${{ github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' }}
         shell: bash
-        run: ./pipeline/scripts/sh/task-build-store-commit-info.sh
+        run: ./pipeline-tools/scripts/sh/task-build-store-commit-info.sh

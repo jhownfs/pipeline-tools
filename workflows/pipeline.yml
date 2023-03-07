@@ -28,7 +28,7 @@ jobs:
     if: ${{ github.event.pull_request.base.ref == 'master' }}
     with:
       environment-name: stage
-      environment-url: https://login.salesforce.com
+      environment-url: https://test.salesforce.com
       BUILD_CHECK_ONLY: true
       BUILD_TEST_LEVEL: RunLocalTests
     secrets: inherit
@@ -38,9 +38,9 @@ jobs:
     if: ${{ github.ref == 'refs/heads/master' }}
     with:
       environment-name: stage
-      environment-url: https://login.salesforce.com
+      environment-url: https://test.salesforce.com
       BUILD_CHECK_ONLY: true
-      BUILD_TEST_LEVEL: NoTestRun
+      BUILD_TEST_LEVEL: RunLocalTests
     secrets: inherit
 
   build-app-prod:
