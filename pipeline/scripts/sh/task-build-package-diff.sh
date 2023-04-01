@@ -16,7 +16,7 @@ echo "\n#### Building Package to Deploy #####"
 python --version
 sfdx force:project:create --projectname $PROJECT_NAME --template empty
 python $PATH_PIPELINE_TOOLS/config/copy-files-beta.py ./ ./pr-files/diff-file $PROJECT_NAME
-python $PATH_PIPELINE_TOOLS/config/manifest/package-packer.py ./ ./$PROJECT_NAME/force-app/main/default ./force-app/main/default
+# python $PATH_PIPELINE_TOOLS/config/manifest/package-packer.py ./ ./$PROJECT_NAME/force-app/main/default ./force-app/main/default
 
 cd $PROJECT_NAME
 
