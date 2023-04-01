@@ -10,17 +10,13 @@ TEST_ROOT_PATH="$REPOSITORY_PATH/tests"
 DEFAULT_TESTS_PATH="$TEST_ROOT_PATH/default-tests"
 CHECK_ONLY_FLAG=$([[ $CHECK_ONLY == "true" ]] && echo "--checkonly" || echo "")
 DESTRUCTIVE_CHANGES="../destructiveChanges/destructiveChanges.xml"
-# . $HELPER_SCRIPTS_PATH/functions.sh
 
 echo "\n#### Building Package to Deploy #####"
 python --version
 sfdx force:project:create --projectname $PROJECT_NAME --template empty
 python $PATH_PIPELINE_TOOLS/config/copy-files-beta.py ./ ./pr-files/diff-file $PROJECT_NAME
-# python $PATH_PIPELINE_TOOLS/config/manifest/package-packer.py ./ ./$PROJECT_NAME/force-app/main/default ./force-app/main/default
 
 cd $PROJECT_NAME
-
-#sfdx scanner:run --format sarif --target './**/*.cls' --category "Design,Best Practices,Performance" --outfile 'apexScanResults.sarif'  
 
 echo "\n#### Initiate deploy in Organization #####"
 echo "Running source deploy command with parameters -u "$USERNAME" --testlevel $TEST_LEVEL $CHECK_ONLY_FLAG " 
