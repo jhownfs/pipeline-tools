@@ -6,17 +6,17 @@ REPOSITORY_PATH="$(git rev-parse --show-toplevel)"
 TEST_ROOT_PATH="$REPOSITORY_PATH/tests"
 DEFAULT_TESTS_PATH="$TEST_ROOT_PATH/default-tests"
 CHECK_ONLY_FLAG=$([[ $CHECK_ONLY == "true" ]] && echo "--checkonly" || echo "")
-DESTRUCTIVE_CHANGES="./destructiveChanges/destructiveChanges.xml"
+#DESTRUCTIVE_CHANGES="./destructiveChanges/destructiveChanges.xml"
 CMD_DEPLOY=("--manifest ./package/package.xml")
 
 cd $REPOSITORY_PATH
 
-if [ -f "$DESTRUCTIVE_CHANGES" ]; then
-    CMD_DEPLOY+=("--predestructivechanges "$DESTRUCTIVE_CHANGES"")
-    echo ""
-    echo "destructive files found"
-    echo ""
-fi
+# if [ -f "$DESTRUCTIVE_CHANGES" ]; then
+#     CMD_DEPLOY+=("--predestructivechanges "$DESTRUCTIVE_CHANGES"")
+#     echo ""
+#     echo "destructive files found"
+#     echo ""
+# fi
 
 echo "\n#### Initiate deploy in Organization #####"
 echo "Running source deploy command with parameters -u "$USERNAME" --testlevel $TEST_LEVEL $CHECK_ONLY_FLAG " 

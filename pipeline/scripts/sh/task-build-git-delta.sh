@@ -31,15 +31,15 @@ echo ""
 cd $REPOSITORY_PATH
 sfdx sgd:source:delta -s ${SOURCE_PATH} --to ${CURRENT_SHA1} --from ${SHA1_FILE} --output .
 
-DESTRUCTIVE_CHANGES="$(git diff --name-only --diff-filter=D ${SHA1_FILE} ${CURRENT_SHA1})"
-if [ -n "$DESTRUCTIVE_CHANGES" ]; then
-    echo ""
-    echo "destructive files found"
-    echo ""
-    echo "$DESTRUCTIVE_CHANGES"
-else
-    rm -rf ./destructiveChanges
-fi
+# DESTRUCTIVE_CHANGES="$(git diff --name-only --diff-filter=D ${SHA1_FILE} ${CURRENT_SHA1})"
+# if [ -n "$DESTRUCTIVE_CHANGES" ]; then
+#     echo ""
+#     echo "destructive files found"
+#     echo ""
+#     echo "$DESTRUCTIVE_CHANGES"
+# else
+#     rm -rf ./destructiveChanges
+# fi
 
 CHANGES="$(git diff --name-only --diff-filter=d ${SHA1_FILE} ${CURRENT_SHA1})"
 if [ -n "$CHANGES" ]; then
